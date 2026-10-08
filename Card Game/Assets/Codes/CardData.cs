@@ -8,7 +8,9 @@ public class CardData : ScriptableObject
     [SerializeField] private string cardName;
     [SerializeField] private CardPattern addedPawns;
     [SerializeField] private CardPattern effectTiles;
+    [SerializeField] private Sprite artwork;
 
+    public Sprite Artwork => artwork;
     public int Price => price;
     public int Power => power;
     public string Name => cardName;

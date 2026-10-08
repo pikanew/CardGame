@@ -37,7 +37,7 @@ public class Card : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        data = new CardData(data);
+
     }
 
     // Update is called once per frame

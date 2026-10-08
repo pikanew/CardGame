@@ -4,11 +4,16 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int num;
 
+    private Hand hand;
+
     public int Num => num;
+    public Hand Hand => hand;
+
 
     public void Initialize(int playerNum)
     {
         num = playerNum;
+        hand = new Hand();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

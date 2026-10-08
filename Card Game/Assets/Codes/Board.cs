@@ -5,13 +5,12 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Board : MonoBehaviour
 {
 
-    //test
-    [SerializeField] private Card cardPrefab;
-    [SerializeField] private CardData testCardData;
 
 
-    Tile[,] board = new Tile[3, 5];
+    private Tile[,] board = new Tile[3, 5];
     private Row[] rows = new Row[3];
+    [SerializeField] private GameManager gameManager;
+
 
     //events
     public event Action<Card, Tile, Player> CardPlaced;
@@ -23,33 +22,41 @@ public class Board : MonoBehaviour
     public Player Player1;
     public Player Player2;
 
+    [SerializeField] private Transform boardPanel;
     [SerializeField] Tile tilePrefab;
+
+    public GameManager GameManager => gameManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Initialize();
-        Test();
     }
 
-    public void Test()
+    public Tile GetTile(int row, int column)
     {
-        Card card = Instantiate(cardPrefab);
-
-        card.Initialize(testCardData);
-
-        PlayCard(card, board[1, 0], Player1);
-        for(int i = 0; i < boardHeight; i++)
-        {
-            Debug.Log($"P1: {rows[i].Player1Sum}, P2: {rows[i].Player2Sum}");
-        }
+        return board[row, column];
     }
+
+    public bool CanPlayCard(Card card, Tile tile, Player player)
+    {
+        if (tile.Card != null)
+            return false;
+
+        if (tile.Owner != player)
+            return false;
+
+        if (tile.Pawns < card.Price)
+            return false;
+
+        return true;
+    }
+
+
 
     public void Initialize()
     {
-        Player1.Initialize(1);
-        Player2.Initialize(2);
 
         for (int i = 0; i < rows.Length; i++)
         {
@@ -61,7 +68,11 @@ public class Board : MonoBehaviour
             {
                 Tile tile = Instantiate(tilePrefab, transform);
 
-                tile.Initialize(i, j);
+                TileView tileView = boardPanel
+                .GetChild(i * boardWidth + j)
+                .GetComponent<TileView>();
+
+                tile.Initialize(i, j, this, tileView);
 
                 board[i, j] = tile;
 
@@ -145,6 +156,34 @@ public class Board : MonoBehaviour
     public void ApplyTileEffects(Card card, Tile tile, Player player)
     {
 
+    }
+
+    public MovePreview GetMovePreview(Card card, Tile tile, Player player)
+    {
+        MovePreview preview = new MovePreview();
+
+        int i = 0;
+
+        foreach (PatternRow row in card.data.AddedPawns.rows)
+        {
+            int boardRow = i - middleIndex + tile.Row;
+
+            for (int j = 0; j < boardWidth; j++)
+            {
+                int boardColumn = j - middleIndex + tile.Column;
+
+                if (row.values[j] == 1 &&
+                    boardRow >= 0 && boardRow < boardHeight &&
+                    boardColumn >= 0 && boardColumn < boardWidth)
+                {
+                    preview.PawnTiles.Add(board[boardRow, boardColumn]);
+                }
+            }
+
+            i++;
+        }
+
+        return preview;
     }
 
 }
