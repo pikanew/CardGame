@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Dyne
+  m_EditorClassIdentifier: 
+  price: 6
+  power: 3
+  cardName: Dyne
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000000000000000000001000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000001000000
+    - values: 0000000000000000000000000100000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000500000000000000
+    - values: 0000000000000000000000000000000005000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000005000000
+    - values: 0000000000000000000000000500000000000000
+  artwork: {fileID: -1806551752732810511, guid: 6933760c3ab322146b0c112eaeb6edc1, type: 3}
+  p1ArtWork: {fileID: -1806551752732810511, guid: 6933760c3ab322146b0c112eaeb6edc1, type: 3}
+  p2ArtWork: {fileID: -4748167008557199312, guid: d8e10a75cfb9a2f49ab153ee02ca6055, type: 3}
+  abilities: []

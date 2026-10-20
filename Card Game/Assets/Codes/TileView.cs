@@ -13,6 +13,19 @@ public class TileView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameManager gameManager;
     [SerializeField] private Tile tile;
 
+
+    [SerializeField] private Color playableColor = Color.yellow;
+    [SerializeField] private Color enhancedColor = Color.green;
+    [SerializeField] private Color enfeebledColor = Color.red;
+
+    public enum GlowType
+    {
+        None,
+        Playable,
+        Enhanced,
+        Enfeebled
+    }
+
     public void Initialize(Tile tile, GameManager gameManager)
     {
         this.tile = tile;
@@ -24,6 +37,32 @@ public class TileView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         button.onClick.AddListener(OnClicked);
 
         glow.gameObject.SetActive(false);
+    }
+
+    public void SetGlow(GlowType type)
+    {
+        if (type == GlowType.None)
+        {
+            glow.gameObject.SetActive(false);
+            return;
+        }
+
+        glow.gameObject.SetActive(true);
+
+        switch (type)
+        {
+            case GlowType.Playable:
+                glow.color = playableColor;
+                break;
+
+            case GlowType.Enhanced:
+                glow.color = enhancedColor;
+                break;
+
+            case GlowType.Enfeebled:
+                glow.color = enfeebledColor;
+                break;
+        }
     }
 
     public void PreviewPawns(int pawns, Player owner)
@@ -40,6 +79,12 @@ public class TileView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             FixSprite();
         else
             Sprite.sprite = null;
+    }
+
+    public void ShowEmptyTile()
+    {
+        Sprite.enabled = true;
+        ClearPreview();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -72,5 +117,10 @@ public class TileView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Sprite.sprite = P2Pawns[tile.Pawns - 1];
         }
+    }
+
+    public void ShowCard()
+    {
+        Sprite.enabled = false;
     }
 }

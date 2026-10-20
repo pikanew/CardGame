@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7134348547425366485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 37.4316, y: 47.3017}
-  m_SizeDelta: {x: 113.1809, y: 145.6934}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 225, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1838561407533968878
 CanvasRenderer:
@@ -107,10 +107,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7134348547425366485}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 37.4316, y: 47.3017}
-  m_SizeDelta: {x: 75, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6998264350788682976
 CanvasRenderer:
@@ -266,3 +266,6 @@ MonoBehaviour:
   glow: {fileID: 651030809468077841}
   Sprite: {fileID: 1811645382520200215}
   tile: {fileID: 0}
+  playableColor: {r: 1, g: 0.81960785, b: 0.4, a: 0.7490196}
+  enhancedColor: {r: 0.33333334, g: 0.8509804, b: 0.5529412, a: 0.7490196}
+  enfeebledColor: {r: 0.9411765, g: 0.41568628, b: 0.47058824, a: 0.7490196}

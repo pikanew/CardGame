@@ -42,18 +42,18 @@ public class Tile : MonoBehaviour
         
     }
 
-    public void AddPawn(Player player)
+    public void AddPawns(Player player, int amount)
     {
         if (card != null) { return; }//dont add a pawn to a tile that has a card on it
 
         if(Owner == null)//if the tile is unowned, set the owner to the player and add a pawn
         {
             owner = player;
-            pawns++;
+            pawns = Mathf.Min(3, pawns + amount);
         }
         else if(player == Owner)//if the player already owns this tile, add a pawn
         {
-            pawns++;
+            pawns = Mathf.Min(3, pawns + amount);
         }
         else//if the other player owns this tile, keep the same pawn count, but switch ownership
         {

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Deck Deck { get; private set; }
     [SerializeField] private int num;
 
     private Hand hand;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     {
         num = playerNum;
         hand = new Hand();
+        Deck = new Deck();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

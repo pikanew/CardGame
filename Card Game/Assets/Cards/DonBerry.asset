@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: DonBerry
+  m_EditorClassIdentifier: 
+  price: 2
+  power: 2
+  cardName: 
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 00000000000000009cffffff0000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: -3715982453043184809, guid: e557b72e1e60f964c94a67082d97b23d, type: 3}
+  p1ArtWork: {fileID: -3715982453043184809, guid: e557b72e1e60f964c94a67082d97b23d, type: 3}
+  p2ArtWork: {fileID: 8198604682832550053, guid: 5deff52c7192d9541a4a87c4ce08d224, type: 3}
+  abilities: []

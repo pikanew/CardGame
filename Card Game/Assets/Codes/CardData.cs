@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "Cards/Card Data")]
@@ -9,6 +10,13 @@ public class CardData : ScriptableObject
     [SerializeField] private CardPattern addedPawns;
     [SerializeField] private CardPattern effectTiles;
     [SerializeField] private Sprite artwork;
+
+    [SerializeField] private Sprite p1ArtWork;
+    [SerializeField] private Sprite p2ArtWork;
+
+    [SerializeField] private List<AbilityData> abilities = new();
+
+    public IReadOnlyList<AbilityData> Abilities => abilities;
 
     public Sprite Artwork => artwork;
     public int Price => price;
@@ -30,6 +38,11 @@ public class CardData : ScriptableObject
     void Update()
     {
 
+    }
+
+    public Sprite GetArtWork(int playerNum)
+    {
+        return playerNum == 1 ? p1ArtWork : p2ArtWork;
     }
 
     public CardData(CardData other)

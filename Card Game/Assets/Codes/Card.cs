@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
     [SerializeField] public CardData data { get; private set; }
+
+    private readonly List<AbilityInstance> abilities = new();
 
 
     private int currentPower;
@@ -11,6 +14,8 @@ public class Card : MonoBehaviour
     public int Power => currentPower;
     public int Price => data.Price;
     public string CardName => data.name;
+
+    public event System.Action<int> PowerChanged;
 
     public void Initialize(CardData cardData)
     {
@@ -21,17 +26,45 @@ public class Card : MonoBehaviour
     public void ChangePower(int amount)
     {
         currentPower += amount;
+
+        PowerChanged?.Invoke(currentPower);
     }
 
     public void DestroyCard()
     {
         tile = null;
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     public virtual void CardPlayed(Tile playingTile)
     {
         tile = playingTile;
+    }
+
+    public void RegisterAbilities(Board board, Player owner)
+    {
+        foreach (AbilityData abilityData in data.Abilities)
+        {
+            AbilityInstance ability = new AbilityInstance(
+                abilityData,
+                this,
+                owner,
+                board
+            );
+
+            abilities.Add(ability);
+            ability.Register();
+        }
+    }
+
+    public void UnregisterAbilities()
+    {
+        foreach (AbilityInstance ability in abilities)
+        {
+            ability.Unregister();
+        }
+
+        abilities.Clear();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
