@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Card cardPrefab;
     [SerializeField] private CardView cardViewPrefab;
 
-    [SerializeField] private DeckData player1Deck;
-    [SerializeField] private DeckData player2Deck;
+    [SerializeField] private CardDatabase cardDatabase;
 
     [SerializeField] private Transform p1HandPanel;
     [SerializeField] private Transform p2HandPanel;
@@ -25,6 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private TMP_Text p1ScoreText;
     [SerializeField] private TMP_Text p2ScoreText;
+
+    [SerializeField] private MatchSetup matchSetup;
 
     private GamePhase.gamePhase gamePhase = GamePhase.gamePhase.Mulligan;
 
@@ -52,8 +53,8 @@ public class GameManager : MonoBehaviour
         player1.Initialize(1);
         player2.Initialize(2);
 
-        InitializeDeck(player1, player1Deck);
-        InitializeDeck(player2, player2Deck);
+        InitializePlayerDeck(player1, matchSetup.GetPlayer1Deck());
+        InitializePlayerDeck(player2, matchSetup.GetPlayer2Deck());
 
         InitializeHand(player1, p1HandPanel);
         InitializeHand(player2, p2HandPanel);
@@ -65,7 +66,19 @@ public class GameManager : MonoBehaviour
         StartMulligan(player1);
 
         board.CardDestroyed += OnCardDestroyed;
+    }
 
+    public void InitializePlayerDeck(Player player, IReadOnlyList<CardData> cards)
+    {
+        foreach (CardData cardData in cards)
+        {
+            Card card = Instantiate(cardPrefab);
+            card.Initialize(cardData);
+
+            player.Deck.AddCard(card);
+        }
+
+        player.Deck.Shuffle();
     }
 
     public void OnCardClicked(Card card, Player player)
@@ -416,6 +429,19 @@ public class GameManager : MonoBehaviour
     private void InitializeDeck(Player player, DeckData deckData)
     {
         foreach (CardData cardData in deckData.Cards)
+        {
+            Card card = Instantiate(cardPrefab);
+            card.Initialize(cardData);
+
+            player.Deck.AddCard(card);
+        }
+
+        player.Deck.Shuffle();
+    }
+
+    private void InitializeDeck(Player player, IReadOnlyList<CardData> cards)
+    {
+        foreach (CardData cardData in cards)
         {
             Card card = Instantiate(cardPrefab);
             card.Initialize(cardData);

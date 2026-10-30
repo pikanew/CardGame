@@ -13,6 +13,9 @@ public class CardData : ScriptableObject
 
     [SerializeField] private Sprite p1ArtWork;
     [SerializeField] private Sprite p2ArtWork;
+    [SerializeField] private string cardId;
+
+    public string CardId => cardId;
 
     [SerializeField] private List<AbilityData> abilities = new();
 

@@ -32,4 +32,5 @@ MonoBehaviour:
   artwork: {fileID: -8327364989876774885, guid: 8caae1ef9ba9aed4fb6d8c0ea2e782dc, type: 3}
   p1ArtWork: {fileID: -8327364989876774885, guid: 8caae1ef9ba9aed4fb6d8c0ea2e782dc, type: 3}
   p2ArtWork: {fileID: -1486271150861194654, guid: a28708b6cca5f5a40b8b12c192c000a0, type: 3}
+  cardId: 11
   abilities: []
