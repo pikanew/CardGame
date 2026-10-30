@@ -377,6 +377,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194509628}
   m_CullTransparentMesh: 1
+--- !u!1 &316200337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316200339}
+  - component: {fileID: 316200338}
+  m_Layer: 0
+  m_Name: MatchSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &316200338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316200337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02927d5b0bce74241bb2bb72b3b63110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardDatabase: {fileID: 11400000, guid: 19f89f6b6da0eb148b9bdd17c96589cd, type: 2}
+  player2TestDeck: {fileID: 11400000, guid: 4446fb8d98adc1449b40d3534554d70f, type: 2}
+--- !u!4 &316200339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316200337}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 466.2722, y: 323.96097, z: -2.9709744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &346292453 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7134348547425366485, guid: 719763f9101752a43b26ddeb3b9add9e, type: 3}
@@ -2554,14 +2600,14 @@ MonoBehaviour:
   player2: {fileID: 949408479}
   cardPrefab: {fileID: 6726784721598302557, guid: 2f1566bae91469b4a9b87275873c0d89, type: 3}
   cardViewPrefab: {fileID: 6246148013742645414, guid: 9431dfee760b19f45963d7560e371123, type: 3}
-  player1Deck: {fileID: 11400000, guid: 8da4d5b4ea1f26b4ca738d27d4cb563e, type: 2}
-  player2Deck: {fileID: 11400000, guid: 4446fb8d98adc1449b40d3534554d70f, type: 2}
+  cardDatabase: {fileID: 0}
   p1HandPanel: {fileID: 1633162539}
   p2HandPanel: {fileID: 939634948}
   resultsPanel: {fileID: 1076324670}
   resultText: {fileID: 1828886447}
   p1ScoreText: {fileID: 573310563}
   p2ScoreText: {fileID: 1192374569}
+  matchSetup: {fileID: 316200338}
   confirmMulliganButton: {fileID: 33458581}
 --- !u!4 &1443059059
 Transform:
@@ -4407,3 +4453,4 @@ SceneRoots:
   - {fileID: 365177486}
   - {fileID: 949408480}
   - {fileID: 1152032796}
+  - {fileID: 316200339}

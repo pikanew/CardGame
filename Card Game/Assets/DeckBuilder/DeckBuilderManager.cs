@@ -21,6 +21,8 @@ public class DeckBuilderManager : MonoBehaviour
     [SerializeField] private Button selectDeckButton;
     [SerializeField] private TMP_Text selectDeckButtonText;
 
+    private bool isSelectingDeck;
+
     private int selectedDeckIndex = -1;
 
     private string SavePath =>
@@ -49,6 +51,52 @@ public class DeckBuilderManager : MonoBehaviour
         return count;
     }
 
+    private void OnDecksLoaded(DeckSaveData saveData)
+    {
+        selectedDeckIndex = saveData.selectedDeckIndex;
+
+        if (selectedDeckIndex < 0 || selectedDeckIndex >= DeckSlotCount)
+            selectedDeckIndex = -1;
+
+        Dictionary<string, CardData> cardsById = new();
+
+        foreach (CardData card in cardDatabase.Cards)
+        {
+            cardsById[card.CardId] = card;
+        }
+
+        for (int i = 0; i < DeckSlotCount; i++)
+        {
+            decks[i].Clear();
+
+            if (i >= saveData.decks.Count)
+                continue;
+
+            SavedDeck savedDeck = saveData.decks[i];
+
+            if (savedDeck?.cards == null)
+                continue;
+
+            foreach (SavedCard savedCard in savedDeck.cards)
+            {
+                if (cardsById.TryGetValue(savedCard.cardId, out CardData card))
+                {
+                    decks[i][card] = savedCard.copies;
+                }
+            }
+        }
+
+        currentDeckIndex = selectedDeckIndex >= 0
+            ? selectedDeckIndex
+            : 0;
+
+        databaseContent.gameObject.SetActive(true);
+
+        RefreshDeckUI();
+
+        Debug.Log("Decks loaded from backend successfully.");
+    }
+
     private void Start()
     {
         for (int i = 0; i < DeckSlotCount; i++)
@@ -56,20 +104,28 @@ public class DeckBuilderManager : MonoBehaviour
             decks[i] = new Dictionary<CardData, int>();
         }
 
-        LoadDecks();
-
         PopulateDatabase();
-        RefreshDeckUI();
+
+        databaseContent.gameObject.SetActive(false);
+
+        StartCoroutine(
+            DeckApiClient.Instance.GetDecks(OnDecksLoaded)
+        );
     }
 
     public void NextDeck()
     {
+        if (isSelectingDeck)
+            return;
+
         currentDeckIndex = (currentDeckIndex + 1) % DeckSlotCount;
         RefreshDeckUI();
     }
 
     public void PreviousDeck()
     {
+        if (isSelectingDeck)
+            return;
         currentDeckIndex = (currentDeckIndex - 1 + DeckSlotCount) % DeckSlotCount;
         RefreshDeckUI();
     }
@@ -137,6 +193,9 @@ public class DeckBuilderManager : MonoBehaviour
 
     private void AddCard(CardData data)
     {
+        if (isSelectingDeck)
+            return;
+
         if (deckSize >= MaxDeckSize)
             return;
 
@@ -179,6 +238,9 @@ public class DeckBuilderManager : MonoBehaviour
 
     private void RemoveCard(CardData data)
     {
+        if (isSelectingDeck)
+            return;
+
         if (!deck.TryGetValue(data, out int copies))
             return;
 
@@ -198,12 +260,12 @@ public class DeckBuilderManager : MonoBehaviour
         }
 
         databaseViews[data].UpdateCopyCount(copies, MaxCopies, false);
-        UpdateDeckCount();
         if (currentDeckIndex == selectedDeckIndex && deckSize < MaxDeckSize)
         {
             selectedDeckIndex = -1;
             UpdateSelectDeckButton();
         }
+        UpdateDeckCount();
         SaveDecks();
     }
 
@@ -277,7 +339,8 @@ public class DeckBuilderManager : MonoBehaviour
         bool isFull = deckSize == MaxDeckSize;
         bool isSelected = currentDeckIndex == selectedDeckIndex;
 
-        selectDeckButton.interactable = isFull && !isSelected;
+        selectDeckButton.interactable =
+        isFull && !isSelected && !isSelectingDeck;
 
         if (isSelected)
             selectDeckButtonText.text = "Selected";
@@ -287,38 +350,37 @@ public class DeckBuilderManager : MonoBehaviour
 
     public void SelectDeck()
     {
-        if (deckSize != MaxDeckSize)
+        if (deckSize != MaxDeckSize || isSelectingDeck)
             return;
 
-        selectedDeckIndex = currentDeckIndex;
+        int slot = currentDeckIndex;
 
+        isSelectingDeck = true;
         UpdateSelectDeckButton();
-        SaveDecks();
+
+        DeckApiClient.Instance.SelectDeck(
+            slot,
+            () =>
+            {
+                selectedDeckIndex = slot;
+                isSelectingDeck = false;
+
+                UpdateSelectDeckButton();
+
+                Debug.Log($"Deck {slot + 1} selected successfully.");
+            },
+            error =>
+            {
+                isSelectingDeck = false;
+                UpdateSelectDeckButton();
+
+                Debug.LogError("Failed to select deck: " + error);
+            }
+        );
     }
 
     private void SaveDecks()
     {
-        DeckSaveData saveData = new DeckSaveData();
-
-        foreach (Dictionary<CardData, int> deckSlot in decks)
-        {
-            SavedDeck savedDeck = new SavedDeck();
-            saveData.currentDeckIndex = currentDeckIndex;
-            saveData.selectedDeckIndex = selectedDeckIndex;
-            foreach (var entry in deckSlot)
-            {
-                savedDeck.cards.Add(new SavedCard
-                {
-                    cardId = entry.Key.CardId,
-                    copies = entry.Value
-                });
-            }
-
-            saveData.decks.Add(savedDeck);
-        }
-
-        string json = JsonUtility.ToJson(saveData, true);
-
-        File.WriteAllText(SavePath, json);
+        DeckApiClient.Instance.SaveDeck(currentDeckIndex, deck);
     }
 }
