@@ -44,6 +44,16 @@ public class MainMenuManager : MonoBehaviour
         playButton.interactable = HasSelectedDeck();
     }
 
+    public void OnPrivateRooms()
+    {
+        SceneManager.LoadScene("PrivateRoomLobby");
+    }
+
+    public void OpenRankedMatchmaking()
+    {
+        SceneManager.LoadScene("RankedMatchmaking");
+    }
+
     private bool HasSelectedDeck()
     {
         if (deckData == null || deckData.decks == null)
@@ -89,5 +99,10 @@ public class MainMenuManager : MonoBehaviour
     {
         AuthSession.Logout();
         SceneManager.LoadScene("Login");
+    }
+
+    public void OpenLeaderboard()
+    {
+        SceneManager.LoadScene("Leaderboard");
     }
 }

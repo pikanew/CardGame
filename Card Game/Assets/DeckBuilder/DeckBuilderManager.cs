@@ -53,6 +53,7 @@ public class DeckBuilderManager : MonoBehaviour
 
     private void OnDecksLoaded(DeckSaveData saveData)
     {
+        Debug.Log("OnDecksLoaded called");
         selectedDeckIndex = saveData.selectedDeckIndex;
 
         if (selectedDeckIndex < 0 || selectedDeckIndex >= DeckSlotCount)
@@ -99,6 +100,8 @@ public class DeckBuilderManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("DeckBuilderManager Start called");
+
         for (int i = 0; i < DeckSlotCount; i++)
         {
             decks[i] = new Dictionary<CardData, int>();

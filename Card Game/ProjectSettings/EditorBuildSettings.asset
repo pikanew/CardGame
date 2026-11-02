@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 189d15f12ecad5a48a6abb7fb18142f4
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
@@ -15,8 +18,14 @@ EditorBuildSettings:
     path: Assets/Scenes/DeckBuilding.unity
     guid: 8e8eca65ed3023949882f766f88836d1
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 189d15f12ecad5a48a6abb7fb18142f4
+    path: Assets/Scenes/PrivateRoomLobby.unity
+    guid: b3e00537c09dfb44d9ffb66079a5631b
+  - enabled: 1
+    path: Assets/Scenes/RankedMatchMaking.unity
+    guid: 695aa96eee3c49a49a79002f0088dba4
+  - enabled: 1
+    path: Assets/Scenes/LeaderBoard.unity
+    guid: 106aafd521f38e64192c3a74cd99e6ec
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
