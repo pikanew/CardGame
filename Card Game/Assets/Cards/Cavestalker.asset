@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Cavestalker
+  m_EditorClassIdentifier: 
+  price: 2
+  power: 4
+  cardName: Cavestalker
+  addedPawns:
+    rows:
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000010000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000200000000000000
+    - values: 0000000000000000000000000200000000000000
+    - values: 0000000000000000000000000200000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: -1986039320708435246, guid: eec13b9855dfe254f8c0817f0b98f4ab, type: 3}
+  player2Artwork: {fileID: 2232327992195158048, guid: 58943e49105a6604db252be22190af5b, type: 3}
+  legendary: 0
+  cardId: 14
+  description: When first enfeebled, lower the power of enemy cards on affected tiles
+    by 2
+  abilities:
+  - {fileID: 11400000, guid: 7e3b73546b4919543adfc5154ed139c8, type: 2}

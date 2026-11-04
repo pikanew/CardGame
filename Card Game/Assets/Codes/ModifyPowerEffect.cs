@@ -3,9 +3,60 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "ModifyPowerEffect",
     menuName = "Card Game/Effects/Modify Power")]
-public class ModifyPowerEffect : CardEffect
+public class ModifyPowerEffect : CardEffect, IContinuousPowerEffect
 {
     [SerializeField] private TargetType.targetType targetType;
+    [SerializeField] private bool enhance = true;
+
+    public TargetType.targetType Target => targetType;
+
+    public bool Enhance => enhance;
+
+
+    public int GetPowerChange(AbilityContext context, Card target)
+    {
+        if (context.Source == null ||
+            context.Source.tile == null ||
+            context.Source.tile.Card != context.Source ||
+            target == null ||
+            target.tile == null ||
+            target.tile.Card != target)
+            return 0;
+
+        bool isAlly = target.tile.Owner == context.Owner;
+
+        if (targetType == TargetType.targetType.Allies && !isAlly)
+            return 0;
+
+        if (targetType == TargetType.targetType.Enemies && isAlly)
+            return 0;
+
+        CardPattern pattern = context.Source.data.EffectTiles;
+
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                Vector2Int position = context.Board.GetPatternPosition(
+                    context.Source.tile,
+                    i,
+                    j,
+                    context.Owner
+                );
+
+                if (position.x == target.tile.Row &&
+                    position.y == target.tile.Column)
+                {
+                    int multiplier = enhance ? 1 : -1;
+
+                    return Mathf.Abs(pattern.rows[i].values[j])
+                        * multiplier;
+                }
+            }
+        }
+
+        return 0;
+    }
 
     public override void Execute(AbilityContext context)
     {
@@ -21,7 +72,9 @@ public class ModifyPowerEffect : CardEffect
         {
             for (int j = 0; j < 5; j++)
             {
-                int amount = pattern.rows[i].values[j];
+                int multiplier = enhance ? 1 : -1;
+
+                int amount = pattern.rows[i].values[j]*multiplier;
 
                 if (amount == 0)
                     continue;

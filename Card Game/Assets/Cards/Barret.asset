@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Barret
+  m_EditorClassIdentifier: 
+  price: 3
+  power: 4
+  cardName: Barret
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000100000001000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000008000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: 6464082914465943416, guid: 2fb68b26d1d9e9c4f89297cd13068b41, type: 3}
+  player2Artwork: {fileID: 2084416531876505922, guid: 06f6f1aec5ae72d41a67687a171a6e62, type: 3}
+  legendary: 1
+  cardId: 2
+  description: When played, lower the power of enemy cards on affected tiles by 8
+  abilities:
+  - {fileID: 11400000, guid: 7e3b73546b4919543adfc5154ed139c8, type: 2}

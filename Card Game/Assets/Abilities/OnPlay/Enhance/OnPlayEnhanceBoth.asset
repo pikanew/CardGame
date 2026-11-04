@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e17c9599863ec148a1d8b1c4db8f949, type: 3}
+  m_Name: OnPlayEnhanceBoth
+  m_EditorClassIdentifier: 
+  trigger: {fileID: 11400000, guid: da4e6085ae8aae44fb99c0e1dc57218c, type: 2}
+  effect: {fileID: 11400000, guid: b2e1413ae30115b4fbd38a0eeefac376, type: 2}

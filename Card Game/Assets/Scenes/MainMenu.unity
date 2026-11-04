@@ -1760,7 +1760,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 694135444}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: Play
+        m_MethodName: OnPrivateRooms
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

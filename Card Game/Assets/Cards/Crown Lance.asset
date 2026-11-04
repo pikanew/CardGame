@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Crown Lance
+  m_EditorClassIdentifier: 
+  price: 2
+  power: 2
+  cardName: Crown Lance
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000100000000000000
+    - values: 0000000000000000000000000100000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000200000000000000
+    - values: 0000000000000000000000000200000000000000
+  artwork: {fileID: 1090752751597686656, guid: 88a04bb88ead6b04b84484867665714b, type: 3}
+  player2Artwork: {fileID: 6638655571233733643, guid: 7d53bdcf103194448a03b70ade1725e8, type: 3}
+  legendary: 0
+  cardId: 16
+  description: When played, lower the power of allied and enemy cards on affected
+    tiles by 2
+  abilities:
+  - {fileID: 11400000, guid: 07bee8e4381c3754bb77e339cef9820e, type: 2}

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Grassslands Wolf
+  m_EditorClassIdentifier: 
+  price: 1
+  power: 2
+  cardName: Grasslands Wolf
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: 8152468017802532065, guid: c1e8976d1715abc4295f29bb54889540, type: 3}
+  player2Artwork: {fileID: -8775386388905074120, guid: f5cd2cdf9530fd447b88341c2344de49, type: 3}
+  legendary: 0
+  cardId: 22
+  description: This card has no abilities
+  abilities: []

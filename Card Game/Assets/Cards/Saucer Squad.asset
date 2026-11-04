@@ -29,8 +29,9 @@ MonoBehaviour:
     - values: 0000000000000000000000000000000000000000
     - values: 0000000000000000000000000000000000000000
     - values: 0000000000000000000000000000000000000000
-  artwork: {fileID: 8170958262665788530, guid: adffe9a2c08a92d4da778c44323bb23a, type: 3}
-  p1ArtWork: {fileID: 8170958262665788530, guid: adffe9a2c08a92d4da778c44323bb23a, type: 3}
-  p2ArtWork: {fileID: 2222157371265305211, guid: d335c51544728a6468c1be6114e4e343, type: 3}
+  artwork: {fileID: 2690577444187759778, guid: 00004a66c32e744469c320842b79a0be, type: 3}
+  player2Artwork: {fileID: 7306396845688414550, guid: 624a7ef7528af9d4380c68831e1fdf5d, type: 3}
+  legendary: 1
   cardId: 10
+  description: This card has no abilities
   abilities: []

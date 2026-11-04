@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Haunted Hotel
+  m_EditorClassIdentifier: 
+  price: 1
+  power: 1
+  cardName: Haunted Hotel
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 000000000000000000000000020000000c000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000200000002000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: 4347083084637181700, guid: d04385912a67e5f45a63995a7982347e, type: 3}
+  player2Artwork: {fileID: 3761833414212257332, guid: 086ff9355e7de01429c323104cdfa851, type: 3}
+  legendary: 1
+  cardId: 23
+  description: Raise the power of allied cards on affected tiles by 2 while this
+    card is in play
+  abilities:
+  - {fileID: 11400000, guid: e65d7d133caadf146953cc087c2828b2, type: 2}

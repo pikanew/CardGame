@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: ForgottenSpecimen
+  m_EditorClassIdentifier: 
+  price: 3
+  power: 4
+  cardName: Forgotten Specimen
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000002000000000000000000000000000000
+    - values: 0000000002000000000000000000000000000000
+  artwork: {fileID: -3331992532605933500, guid: 7cfdc57f63b142941a9cb4f141cbc990, type: 3}
+  player2Artwork: {fileID: -970916834885807895, guid: 251cae8b8a0a8a745ad65a4124ce9c2b, type: 3}
+  legendary: 1
+  cardId: 21
+  description: Raise the power of allied and enemy cards by 2 while this card is
+    in play
+  abilities:
+  - {fileID: 11400000, guid: f9d4fc2d38983b04ea029b7044699f59, type: 2}

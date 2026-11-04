@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CardView : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CardView : MonoBehaviour
     [SerializeField] private Sprite enfeebledPowerSprite;
 
     [SerializeField] private GameObject mulliganOverlay;
+    [SerializeField] private Outline ownerOutline;
 
     public Card Card => card;
 
@@ -21,6 +23,7 @@ public class CardView : MonoBehaviour
 
     Player player;
 
+    private CardTooltip activeTooltip;
 
 
 
@@ -29,8 +32,21 @@ public class CardView : MonoBehaviour
         this.card = card;
         this.gameManager = gameManager;
         this.player = player;
+        GetComponent<CardTooltipHover>()?.Initialize(card.data);
+        if (player != null)
+        {
+            ownerOutline.enabled = true;
 
-        image.sprite = card.data.GetArtWork(player.Num);
+            ownerOutline.effectColor = player.Num == 1
+                ? new Color32(66, 135, 245, 255)  // Blue
+                : new Color32(248, 81, 73, 255);  // Red
+        }
+        else
+        {
+            ownerOutline.enabled = false;
+        }
+
+        image.sprite = card.data.GetArtwork(player.Num);
 
 
         powerText.text = card.Power.ToString();
@@ -102,7 +118,7 @@ public class CardView : MonoBehaviour
         button.transition = Selectable.Transition.None;
         button.interactable = false;
 
-        GetComponent<Image>().raycastTarget = false;
+        GetComponent<Image>().raycastTarget = true;
     }
 
     private void OnDestroy()

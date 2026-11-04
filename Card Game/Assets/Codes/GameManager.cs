@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     private float timeRemaining = TurnDuration;
     private bool isRankedOnlineMatch;
 
+    private string player1Username = "Player 1";
+    private string player2Username = "Player 2";
 
 
     private GamePhase.gamePhase gamePhase = GamePhase.gamePhase.Mulligan;
@@ -235,6 +237,12 @@ public class GameManager : MonoBehaviour
 
     private void ApplyOnlineMatchState(OnlineMatchView match)
     {
+        if (!string.IsNullOrEmpty(match.player1Username))
+            player1Username = match.player1Username;
+
+        if (!string.IsNullOrEmpty(match.player2Username))
+            player2Username = match.player2Username;
+
         if (match.phase == "mulligan")
         {
             UpdateTimerDisplay(match.mulliganSecondsRemaining);
@@ -248,9 +256,10 @@ public class GameManager : MonoBehaviour
             turnTimerText.text = "";
         }
 
+        bool receivedNewAction = false;
+
         if (match.actions != null)
         {
-
             foreach (OnlineMatchAction action in match.actions)
             {
                 if (action.sequence <= lastProcessedActionSequence)
@@ -266,9 +275,16 @@ public class GameManager : MonoBehaviour
                     return;
 
                 lastProcessedActionSequence = action.sequence;
+
+                receivedNewAction = true;
             }
         }
 
+        // Refresh only when the board actually changed.
+        if (receivedNewAction)
+        {
+            RefreshTileGlows();
+        }
         if (match.hand != null)
             UpdateOnlineHandIfChanged(match.hand);
 
@@ -840,14 +856,7 @@ public class GameManager : MonoBehaviour
 
         selectedCard = null;
 
-        // Remove all placement highlights
-        for (int row = 0; row < 3; row++)
-        {
-            for (int column = 0; column < 5; column++)
-            {
-                board.GetTile(row, column).UI.SetGlow(TileView.GlowType.None);
-            }
-        }
+        RefreshTileGlows();
 
         if (consecutivePasses >= 2)
         {
@@ -880,32 +889,79 @@ public class GameManager : MonoBehaviour
     {
         CardPattern pattern = card.data.EffectTiles;
 
-        for (int i = 0; i < 5; i++)
+        int[,] powerChanges = new int[3, 5];
+
+        foreach (AbilityData ability in card.data.Abilities)
         {
-            for (int j = 0; j < 5; j++)
+            if (ability == null ||
+                ability.Effect is not ModifyPowerEffect effect)
+                continue;
+
+            int multiplier = effect.Enhance ? 1 : -1;
+
+            for (int i = 0; i < 5; i++)
             {
-                int amount = pattern.rows[i].values[j];
+                for (int j = 0; j < 5; j++)
+                {
+                    int amount =
+                        Mathf.Abs(pattern.rows[i].values[j]) * multiplier;
 
-                if (amount == 0)
-                    continue;
+                    if (amount == 0)
+                        continue;
 
-                Vector2Int position = board.GetPatternPosition(
-                    targetTile,
-                    i,
-                    j,
-                    player
-                );
+                    Vector2Int position = board.GetPatternPosition(
+                        targetTile,
+                        i,
+                        j,
+                        player
+                    );
 
-                if (position.x < 0 || position.x >= 3 ||
-                    position.y < 0 || position.y >= 5)
-                    continue;
+                    int row = position.x;
+                    int column = position.y;
 
-                Tile affectedTile = board.GetTile(position.x, position.y);
+                    if (row < 0 || row >= 3 ||
+                        column < 0 || column >= 5)
+                        continue;
 
-                if (amount > 0)
-                    affectedTile.UI.SetGlow(GlowType.Enhanced);
-                else
-                    affectedTile.UI.SetGlow(GlowType.Enfeebled);
+                    Tile affectedTile = board.GetTile(row, column);
+
+                    // Check whether an occupied tile is a valid target.
+                    if (affectedTile.Card != null)
+                    {
+                        bool isAlly = affectedTile.Owner == player;
+
+                        if (effect.Target == TargetType.targetType.Allies &&
+                            !isAlly)
+                            continue;
+
+                        if (effect.Target == TargetType.targetType.Enemies &&
+                            isAlly)
+                            continue;
+                    }
+
+                    powerChanges[row, column] += amount;
+                }
+            }
+        }
+
+        for (int row = 0; row < 3; row++)
+        {
+            for (int column = 0; column < 5; column++)
+            {
+                int change = powerChanges[row, column];
+
+                if (change > 0)
+                {
+                    board.GetTile(row, column).UI.SetGlow(
+                        TileView.GlowType.Enhanced
+                    );
+                }
+                else if (change < 0)
+                {
+                    board.GetTile(row, column).UI.SetGlow(
+                        TileView.GlowType.Enfeebled
+                    );
+                }
             }
         }
     }
@@ -919,6 +975,7 @@ public class GameManager : MonoBehaviour
             return;
 
         selectedCard = card;
+        RefreshTileGlows();
         Tile tile;
         for (int row = 0; row < 3; row++)
         {
@@ -981,7 +1038,6 @@ public class GameManager : MonoBehaviour
 
     public void PreviewTile(Tile tile)
     {
-        // Remove any previous preview
         ClearPreview();
 
         if (selectedCard == null)
@@ -990,29 +1046,67 @@ public class GameManager : MonoBehaviour
         if (!board.CanPlayCard(selectedCard, tile, currentPlayer))
             return;
 
+        // Preview power effects
         PreviewPowerEffects(selectedCard, tile, currentPlayer);
 
-        // Calculate and remember the current preview
-        currentPreview = board.GetMovePreview(selectedCard, tile, currentPlayer);
+        // Remember affected tiles so we can clear their previews later
+        currentPreview = board.GetMovePreview(
+            selectedCard,
+            tile,
+            currentPlayer
+        );
 
-        foreach (Tile affectedTile in currentPreview.PawnTiles)
+        CardPattern pattern = selectedCard.data.AddedPawns;
+
+        for (int i = 0; i < 5; i++)
         {
-            if (affectedTile.Card != null)
-                continue;
-
-            int predictedPawns = affectedTile.Pawns;
-            Player predictedOwner = currentPlayer;
-
-            if (affectedTile.Owner == null || affectedTile.Owner == currentPlayer)
+            for (int j = 0; j < 5; j++)
             {
-                predictedPawns++;
+                int amount = pattern.rows[i].values[j];
+
+                if (amount <= 0)
+                    continue;
+
+                Vector2Int position = board.GetPatternPosition(
+                    tile,
+                    i,
+                    j,
+                    currentPlayer
+                );
+
+                if (position.x < 0 || position.x >= 3 ||
+                    position.y < 0 || position.y >= 5)
+                    continue;
+
+                Tile affectedTile = board.GetTile(
+                    position.x,
+                    position.y
+                );
+
+                // No pawns can be added to occupied tiles,
+                // including the tile where the card will be placed.
+                if (affectedTile.Card != null || affectedTile == tile)
+                    continue;
+
+                int predictedPawns = affectedTile.Pawns;
+
+                if (affectedTile.Owner == null ||
+                    affectedTile.Owner == currentPlayer)
+                {
+                    predictedPawns = Mathf.Min(
+                        3,
+                        predictedPawns + amount
+                    );
+                }
+
+                // Enemy tiles retain their pawn count when captured.
+
+                affectedTile.UI.PreviewPawns(
+                    predictedPawns,
+                    currentPlayer
+                );
             }
-
-            predictedPawns = Mathf.Min(predictedPawns, 3);
-
-            affectedTile.UI.PreviewPawns(predictedPawns, predictedOwner);
         }
-
     }
 
     public void PlaySelectedCard(Tile tile)
@@ -1065,13 +1159,7 @@ public class GameManager : MonoBehaviour
         selectedCard = null;
 
         // Remove all valid-placement highlights
-        for (int row = 0; row < 3; row++)
-        {
-            for (int column = 0; column < 5; column++)
-            {
-                board.GetTile(row, column).UI.SetGlow(false);
-            }
-        }
+        RefreshTileGlows();
 
         SwitchTurn();
     }
@@ -1091,29 +1179,134 @@ public class GameManager : MonoBehaviour
         }
 
         tile.UI.ShowEmptyTile();
+        RefreshTileGlows();
+    }
+
+    private void OnBoardPowerChanged(Card card)
+    {
+        RefreshTileGlows();
+    }
+
+    private void OnEnable()
+    {
+        if (board == null)
+            return;
+
+        board.CardEnhanced += OnBoardPowerChanged;
+        board.CardEnfeebled += OnBoardPowerChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (board == null)
+            return;
+
+        board.CardEnhanced -= OnBoardPowerChanged;
+        board.CardEnfeebled -= OnBoardPowerChanged;
     }
 
     private void RefreshTileGlows()
     {
+        int[,] activeAreas = new int[3, 5];
+
+        // Find all active WhileInPlay effects.
+        for (int row = 0; row < 3; row++)
+        {
+            for (int col = 0; col < 5; col++)
+            {
+                Tile sourceTile = board.GetTile(row, col);
+                Card source = sourceTile.Card;
+
+                if (source == null)
+                    continue;
+
+                foreach (AbilityData ability in source.data.Abilities)
+                {
+                    if (ability == null ||
+                        ability.Trigger is not WhileInPlayTrigger ||
+                        ability.Effect is not ModifyPowerEffect effect)
+                        continue;
+
+                    int multiplier = effect.Enhance ? 1 : -1;
+
+                    CardPattern pattern = source.data.EffectTiles;
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            int amount =
+                                Mathf.Abs(pattern.rows[i].values[j]) * multiplier;
+
+                            if (amount == 0)
+                                continue;
+
+                            Vector2Int position = board.GetPatternPosition(
+                                sourceTile,
+                                i,
+                                j,
+                                sourceTile.Owner
+                            );
+
+                            int r = position.x;
+                            int c = position.y;
+
+                            if (r < 0 || r >= 3 || c < 0 || c >= 5)
+                                continue;
+
+                            activeAreas[r, c] += amount;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Determine which glow each tile should display.
         for (int row = 0; row < 3; row++)
         {
             for (int col = 0; col < 5; col++)
             {
                 Tile tile = board.GetTile(row, col);
 
-                if (selectedCard != null &&
-                    board.CanPlayCard(selectedCard, tile, currentPlayer))
+                GlowType glow = GlowType.None;
+
+                if (tile.Card != null)
                 {
-                    tile.UI.SetGlow(GlowType.Playable);
+                    // Occupied tiles show the card's actual power state.
+                    if (tile.Card.Power > tile.Card.data.Power)
+                    {
+                        glow = GlowType.Enhanced;
+                    }
+                    else if (tile.Card.Power < tile.Card.data.Power)
+                    {
+                        glow = GlowType.Enfeebled;
+                    }
                 }
                 else
                 {
-                    tile.UI.SetGlow(GlowType.None);
+                    // Empty tiles show active continuous effect areas.
+                    if (activeAreas[row, col] > 0)
+                    {
+                        glow = GlowType.Enhanced;
+                    }
+                    else if (activeAreas[row, col] < 0)
+                    {
+                        glow = GlowType.Enfeebled;
+                    }
                 }
+
+                // Valid placement highlighting has priority.
+                if (selectedCard != null &&
+                    currentPlayer != null &&
+                    board.CanPlayCard(selectedCard, tile, currentPlayer))
+                {
+                    glow = GlowType.Playable;
+                }
+
+                tile.UI.SetGlow(glow);
             }
         }
     }
-
     private IEnumerator SubmitOnlineRankedResult(
     int p1Score,
     int p2Score)
@@ -1216,14 +1409,14 @@ public class GameManager : MonoBehaviour
         }
 
         if (p1Score > p2Score)
-            resultText.text = "Player 1 Wins!";
+            resultText.text = $"{player1Username} Wins!";
         else if (p2Score > p1Score)
-            resultText.text = "Player 2 Wins!";
+            resultText.text = $"{player2Username} Wins!";
         else
             resultText.text = "Draw!";
 
-        p1ScoreText.text = $"Player 1: {p1Score}";
-        p2ScoreText.text = $"Player 2: {p2Score}";
+        p1ScoreText.text = $"{player1Username}: {p1Score}";
+        p2ScoreText.text = $"{player2Username}: {p2Score}";
 
         bool showPlayAgain = !isOnlineMatch || !isRankedOnlineMatch;
         bool showFindGame = isOnlineMatch && isRankedOnlineMatch;

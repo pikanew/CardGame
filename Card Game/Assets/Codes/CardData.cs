@@ -10,10 +10,18 @@ public class CardData : ScriptableObject
     [SerializeField] private CardPattern addedPawns;
     [SerializeField] private CardPattern effectTiles;
     [SerializeField] private Sprite artwork;
+    [SerializeField] private Sprite player2Artwork;
 
-    [SerializeField] private Sprite p1ArtWork;
-    [SerializeField] private Sprite p2ArtWork;
+    [SerializeField] private bool legendary;
+
+    public bool Legendary => legendary;
+
+
     [SerializeField] private string cardId;
+    [SerializeField, TextArea(2, 5)]
+    private string description;
+
+    public string Description => description;
 
     public string CardId => cardId;
 
@@ -43,9 +51,12 @@ public class CardData : ScriptableObject
 
     }
 
-    public Sprite GetArtWork(int playerNum)
+    public Sprite GetArtwork(int playerNumber)
     {
-        return playerNum == 1 ? p1ArtWork : p2ArtWork;
+        if (playerNumber == 2 && player2Artwork != null)
+            return player2Artwork;
+
+        return Artwork;
     }
 
     public CardData(CardData other)

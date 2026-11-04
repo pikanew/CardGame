@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
   m_Name: Dyne
   m_EditorClassIdentifier: 
-  price: 6
-  power: 3
+  price: 3
+  power: 4
   cardName: Dyne
   addedPawns:
     rows:
@@ -29,8 +29,11 @@ MonoBehaviour:
     - values: 0000000000000000000000000000000000000000
     - values: 0000000000000000000000000000000005000000
     - values: 0000000000000000000000000500000000000000
-  artwork: {fileID: -1806551752732810511, guid: 6933760c3ab322146b0c112eaeb6edc1, type: 3}
-  p1ArtWork: {fileID: -1806551752732810511, guid: 6933760c3ab322146b0c112eaeb6edc1, type: 3}
-  p2ArtWork: {fileID: -4748167008557199312, guid: d8e10a75cfb9a2f49ab153ee02ca6055, type: 3}
+  artwork: {fileID: -5161276275414251672, guid: b0c644aa3651b8c4d8f297dba0efc24c, type: 3}
+  player2Artwork: {fileID: -5657077938933340945, guid: 68648ab0e18c40c41a5df06d3aa258e8, type: 3}
+  legendary: 1
   cardId: 3
-  abilities: []
+  description: When played, lower the power of allied and enemy cards on affected
+    tiles by 5
+  abilities:
+  - {fileID: 11400000, guid: 07bee8e4381c3754bb77e339cef9820e, type: 2}

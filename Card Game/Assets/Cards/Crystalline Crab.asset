@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Crystalline Crab
+  m_EditorClassIdentifier: 
+  price: 1
+  power: 1
+  cardName: Crystalline Crab
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000001000000000000000100000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000020000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: 3750438845725709245, guid: 2299461db7582684a9dc0e0a369d8fbd, type: 3}
+  player2Artwork: {fileID: 301235798334426622, guid: e4a03bdbe8f4501498f6e94cbbd5ad6e, type: 3}
+  legendary: 0
+  cardId: 17
+  description: increase the power of allied cards on affected tiles by 2 while this
+    card is in play
+  abilities:
+  - {fileID: 11400000, guid: e65d7d133caadf146953cc087c2828b2, type: 2}

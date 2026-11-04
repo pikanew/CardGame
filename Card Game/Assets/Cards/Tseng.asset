@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Tseng
+  m_EditorClassIdentifier: 
+  price: 1
+  power: 1
+  cardName: Tseng
+  addedPawns:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000004000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: 605080092046613243, guid: 96b65b930ffd5534e92ca0a155ee2758, type: 3}
+  player2Artwork: {fileID: 4923739258205096061, guid: 1218b6a3fd3880449bc1ade6be7cbe55, type: 3}
+  legendary: 1
+  cardId: 33
+  description: When first enhanced, raise the power of allied cards on affected tiles
+    by 4
+  abilities:
+  - {fileID: 11400000, guid: 9fd242fd79517824f91da2f89f5894ce, type: 2}

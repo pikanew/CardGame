@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb01e9bd0fd0f14199b643ec20d5835, type: 3}
+  m_Name: Riot Trooper
+  m_EditorClassIdentifier: 
+  price: 2
+  power: 3
+  cardName: Riot Trooper
+  addedPawns:
+    rows:
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000000000000100000000000000
+    - values: 0000000000000000010000000000000000000000
+    - values: 0000000000000000010000000000000000000000
+  effectTiles:
+    rows:
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000000000000000000000000000
+  artwork: {fileID: -8326137963946231511, guid: 9b6f7073c16e6344b9dcc77066fdc65d, type: 3}
+  player2Artwork: {fileID: -8485480573144829280, guid: 971faa4e4e9495441a91f634f1b2b83e, type: 3}
+  legendary: 0
+  cardId: 29
+  description: This card has no abilities
+  abilities: []

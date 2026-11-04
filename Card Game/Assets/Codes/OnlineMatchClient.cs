@@ -67,10 +67,16 @@ public class OnlineMatchView
 
     public int turnSecondsRemaining;
     public int mulliganSecondsRemaining;
+
+    public string player1Username { get; set; } = "";
+    public string player2Username { get; set; } = "";
 }
 
 public class OnlineMatchClient : MonoBehaviour
 {
+    public string player1Username;
+    public string player2Username;
+
     private const string BaseUrl =
         "https://localhost:7091/api/matches";
 

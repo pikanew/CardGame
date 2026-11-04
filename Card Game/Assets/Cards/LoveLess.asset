@@ -29,9 +29,11 @@ MonoBehaviour:
     - values: 0000000001000000000000000100000000000000
     - values: 0000000001000000010000000100000000000000
     - values: 0000000000000000000000000000000000000000
-  artwork: {fileID: -6590200215676810337, guid: 753510954866227448ff55cd9234dbec, type: 3}
-  p1ArtWork: {fileID: -6590200215676810337, guid: 753510954866227448ff55cd9234dbec, type: 3}
-  p2ArtWork: {fileID: -2263097878932317386, guid: aa64179957ca9f944935f23161b9b0da, type: 3}
+  artwork: {fileID: -2616439482336864672, guid: 031cafa5d3b9b144a925b8a684eae066, type: 3}
+  player2Artwork: {fileID: 372039345523219065, guid: 39460206f72348640882b8d764432e1d, type: 3}
+  legendary: 1
   cardId: 6
+  description: When played, raise the power of allied and enemy cards on affected
+    tiles by 1.
   abilities:
-  - {fileID: 11400000, guid: 7e3b73546b4919543adfc5154ed139c8, type: 2}
+  - {fileID: 11400000, guid: 80476c666cd9fd8419518602b1ae8d6b, type: 2}

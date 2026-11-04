@@ -25,12 +25,14 @@ MonoBehaviour:
   effectTiles:
     rows:
     - values: 0000000000000000000000000000000000000000
+    - values: 00000000000000009cffffff0000000000000000
     - values: 0000000000000000000000000000000000000000
+    - values: 0000000000000000010000000000000000000000
     - values: 0000000000000000000000000000000000000000
-    - values: 0000000000000000000000000000000000000000
-    - values: 0000000000000000000000000000000000000000
-  artwork: {fileID: -8327364989876774885, guid: 8caae1ef9ba9aed4fb6d8c0ea2e782dc, type: 3}
-  p1ArtWork: {fileID: -8327364989876774885, guid: 8caae1ef9ba9aed4fb6d8c0ea2e782dc, type: 3}
-  p2ArtWork: {fileID: -1486271150861194654, guid: a28708b6cca5f5a40b8b12c192c000a0, type: 3}
+  artwork: {fileID: 2664396838125124338, guid: 8ab3cc057087aee4d8a044c8fede4ba6, type: 3}
+  player2Artwork: {fileID: 6663526598750372765, guid: 8743d663d7028cf44b82f87370343dd2, type: 3}
+  legendary: 1
   cardId: 11
-  abilities: []
+  description: When played, destroy enemy cards on affected tiles
+  abilities:
+  - {fileID: 11400000, guid: 35cad79efdb59b74480cafc44e5d2144, type: 2}

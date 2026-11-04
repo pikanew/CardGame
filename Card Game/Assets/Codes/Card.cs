@@ -17,6 +17,9 @@ public class Card : MonoBehaviour
 
     public event System.Action<int> PowerChanged;
 
+    public bool IsEnhanced => Power > data.Power;
+    public bool IsEnfeebled => Power < data.Power;
+
     public void Initialize(CardData cardData)
     {
         data = cardData;
